@@ -1,6 +1,10 @@
 import React from 'react';
 import { useEmployees } from '../hooks/useEmployees';
 import { useSelector } from 'react-redux';
+import Header from './Header';
+import EmployeeFilters from './EmployeeFilters';
+import EmployeeGrid from './EmployeeGrid';
+import Footer from './Footer';
 
 const DashboardStats = () => {
   const { data: employees = [] } = useEmployees();
@@ -50,7 +54,9 @@ const DashboardStats = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+    <>
+    <Header />
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6 mt-10">
       {stats.map((stat, index) => (
         <div key={index} className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
           <div className="flex items-center justify-between">
@@ -71,6 +77,10 @@ const DashboardStats = () => {
         </div>
       ))}
     </div>
+    <EmployeeFilters />
+    <EmployeeGrid  />
+    <Footer />
+  </>
   );
 };
 

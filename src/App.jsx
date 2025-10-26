@@ -1,17 +1,23 @@
+// src/App.jsx
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import store from './store/store';
-import EmployeeGrid from "./components/EmployeeGrid";
-import EmployeeFilters from "./components/EmployeeFilters";
-import DashboardStats from "./components/DashboardStats";
+import LandingPage from '../src/pages/LandingPage';
+import Dashboard from '../src/components/DashboardStats'
+import Analytics from '../src/pages/Analytics';
+import Reports from '../src/pages/Reports';
+import Footer from "./components/Footer";
 
+// Create React Query client
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: 1,
       refetchOnWindowFocus: false,
+      staleTime: 5 * 60 * 1000, // 5 minutes
     },
   },
 });
@@ -20,24 +26,19 @@ const App = () => {
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <div className="min-h-screen bg-gray-100 p-8">
-          <div className="max-w-7xl mx-auto">
-            <header className="mb-8 text-center">
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">
-                Employee Dashboard
-              </h1>
-              <p className="text-lg text-gray-600">
-                Dynamic AG Grid with Filters and Real-time Stats
-              </p>
-            </header>
-            
-            <DashboardStats />
-            <EmployeeFilters />
-            <EmployeeGrid />
+        <Router>
+          <div className="min-h-screen bg-gray-50">
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/analytics" element={<Analytics />} />
+              <Route path="/reports" element={<Reports />} />
+            </Routes>
           </div>
-        </div>
+        </Router>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
+          {/* <Footer /> */}
     </Provider>
   );
 };

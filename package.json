@@ -14,11 +14,15 @@
     "@tailwindcss/vite": "^4.1.16",
     "@tanstack/react-query": "^5.90.5",
     "@tanstack/react-query-devtools": "^5.90.2",
+    "ag-charts-community": "^12.3.0",
     "ag-grid-community": "^34.3.0",
+    "ag-grid-enterprise": "^34.3.0",
     "ag-grid-react": "^34.3.0",
+    "lucide-react": "^0.548.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-redux": "^9.2.0",
+    "react-router-dom": "^7.9.4",
     "tailwindcss": "^4.1.16"
   },
   "devDependencies": {

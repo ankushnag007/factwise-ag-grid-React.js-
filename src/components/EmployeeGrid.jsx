@@ -29,6 +29,7 @@ const EmployeeGrid = () => {
     });
   }, [employees, filters]);
 
+  // Column Definitions
   const [colDefs] = useState([
     {
       field: "id",
@@ -74,28 +75,9 @@ const EmployeeGrid = () => {
       valueFormatter: (params) => `$${params.value?.toLocaleString() || "0"}`,
     },
     {
-      field: "age",
-      headerName: "Age",
-      width: 100,
-      filter: true,
-    },
-    {
       field: "location",
       headerName: "Location",
       width: 120,
-      filter: true,
-    },
-    {
-      field: "performanceRating",
-      headerName: "Performance",
-      width: 120,
-      filter: true,
-      valueFormatter: (params) => params.value?.toFixed(1) || "0.0",
-    },
-    {
-      field: "projectsCompleted",
-      headerName: "Projects",
-      width: 100,
       filter: true,
     },
     {
@@ -105,12 +87,6 @@ const EmployeeGrid = () => {
       filter: true,
       valueFormatter: (params) => (params.value ? "Yes" : "No"),
     },
-    {
-      field: "manager",
-      headerName: "Manager",
-      width: 150,
-      filter: true,
-    },
   ]);
 
   const defaultColDef = {
@@ -118,14 +94,14 @@ const EmployeeGrid = () => {
     sortable: true,
     filter: true,
     resizable: true,
-    floatingFilter: true,
   };
 
   if (isLoading) {
     return (
-      <div className="p-4 bg-white rounded-lg shadow">
+      <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6">
         <div className="flex justify-center items-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <span className="ml-3 text-gray-600">Loading employees...</span>
         </div>
       </div>
     );
@@ -133,7 +109,7 @@ const EmployeeGrid = () => {
 
   if (error) {
     return (
-      <div className="p-4 bg-white rounded-lg shadow">
+      <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6">
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
           Error loading employee data: {error.message}
         </div>
@@ -142,75 +118,29 @@ const EmployeeGrid = () => {
   }
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow">
-      <div className="flex justify-between items-center mb-4">
-        <div className="text-sm text-gray-500">
-          {filters.department && `Department: ${filters.department} `}
-          {filters.location && `Location: ${filters.location} `}
-          {filters.isActive &&
-            `Status: ${filters.isActive === "true" ? "Active" : "Inactive"}`}
+    <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+      <div className="p-4 border-b border-gray-200">
+        <h3 className="text-lg font-semibold text-gray-800">
+          Employee Data ({filteredEmployees.length} employees)
+        </h3>
+      </div>
+      
+      <div className="p-4">
+        <div 
+          className="ag-theme-alpine w-full"
+          style={{ height: "500px" }}
+        >
+          <AgGridReact
+            ref={gridRef}
+            rowData={filteredEmployees}
+            columnDefs={colDefs}
+            defaultColDef={defaultColDef}
+            pagination={true}
+            paginationPageSize={10}
+          />
         </div>
       </div>
-
-      {/* AG Grid */}
-      <div style={{ width: "auto", height: 500 }}>
-        <AgGridReact
-          ref={gridRef}
-          rowData={filteredEmployees}
-          columnDefs={colDefs}
-          defaultColDef={defaultColDef}
-          pagination={true}
-          paginationPageSize={10}
-          onPaginationChanged={(params) => {
-            const currentPage = params.api.paginationGetCurrentPage() + 1;
-            const totalPages = params.api.paginationGetTotalPages();
-            const currentPageElement = document.getElementById("current-page");
-            if (currentPageElement) {
-              currentPageElement.textContent = `${currentPage} of ${totalPages}`;
-            }
-
-            const firstButton = document.querySelector(
-              'button[title="First Page"]'
-            );
-            const prevButton = document.querySelector(
-              'button[title="Previous Page"]'
-            );
-            const nextButton = document.querySelector(
-              'button[title="Next Page"]'
-            );
-            const lastButton = document.querySelector(
-              'button[title="Last Page"]'
-            );
-
-            if (firstButton && prevButton) {
-              const disabled = currentPage === 1;
-              firstButton.disabled = disabled;
-              prevButton.disabled = disabled;
-            }
-
-            if (nextButton && lastButton) {
-              const disabled = currentPage === totalPages;
-              nextButton.disabled = disabled;
-              lastButton.disabled = disabled;
-            }
-          }}
-          onGridReady={(params) => {
-            console.log(
-              "AG Grid ready with",
-              filteredEmployees.length,
-              "filtered employees"
-            );
-            params.api.paginationGoToPage(0);
-          }}
-        />
-      </div>
-
-      <div className="flex justify-between items-center mt-4 p-3 bg-gray-50 rounded-lg">
-        <div className="text-sm text-gray-600">
-          Showing page <span id="bottom-current-page">1</span> of{" "}
-          <span id="bottom-total-pages">1</span>
-        </div>
-      </div>
+      
     </div>
   );
 };

@@ -1,0 +1,159 @@
+/* src/pages/Reports.css */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 20px;
+  background-color: #f8fafc;
+}
+
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.button-container button {
+  padding: 8px 16px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.button-container button:hover {
+  background-color: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button-container button:active {
+  transform: translateY(0);
+}
+
+#myChart {
+  height: 400px;
+  width: 100%;
+  margin-top: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+/* AG Grid Theme Customization */
+.ag-theme-alpine {
+  --ag-header-height: 50px;
+  --ag-row-height: 45px;
+  --ag-header-foreground-color: white;
+  --ag-header-background-color: #3b82f6;
+  --ag-header-cell-hover-background-color: #2563eb;
+  --ag-border-color: #e2e8f0;
+  --ag-row-border-color: #f1f5f9;
+  --ag-odd-row-background-color: #f8fafc;
+  --ag-background-color: white;
+  --ag-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.ag-theme-alpine .ag-header {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.ag-theme-alpine .ag-header-cell-text {
+  font-weight: 600;
+}
+
+.ag-theme-alpine .ag-row {
+  font-size: 14px;
+  border-bottom: 1px solid var(--ag-row-border-color);
+}
+
+.ag-theme-alpine .ag-row:hover {
+  background-color: #f0f9ff !important;
+}
+
+.ag-theme-alpine .ag-cell {
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.ag-theme-alpine .ag-paging-panel {
+  border-top: 1px solid var(--ag-border-color);
+  padding: 16px;
+  font-size: 14px;
+  color: #64748b;
+  background-color: #f8fafc;
+}
+
+/* Chart container styling */
+.ag-chart {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 10px;
+  }
+  
+  .button-container {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .button-container button {
+    width: 100%;
+    text-align: center;
+  }
+  
+  #myChart {
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    padding: 5px;
+  }
+  
+  #myChart {
+    height: 250px;
+  }
+}
+
+/* Loading state */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: #64748b;
+  font-size: 16px;
+}
+
+/* Error state */
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: #dc2626;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 20px;
+  font-size: 16px;
+}
