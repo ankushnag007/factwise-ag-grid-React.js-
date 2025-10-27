@@ -4,11 +4,13 @@ const LoadingSpinner = () => {
   return (
     <div className="fixed inset-0 bg-white bg-opacity-90 flex items-center justify-center z-50">
       <div className="text-center">
-     <img 
-  src={Logo} 
-  alt="Loading..."
-  className="mx-auto w-auto h-52 pb-5 object-top" 
-/>
+<div className="w-52 h-52 rounded-full overflow-hidden">
+  <img 
+    src={Logo} 
+    alt="Loading..."
+    className="w-auto h-full object-cover" 
+  />
+</div>
       </div>
     </div>
   );

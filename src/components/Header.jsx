@@ -72,7 +72,7 @@ const Header = () => {
             </button>
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                                <img src='https://lh3.googleusercontent.com/a/ACg8ocLzuw6wD16cLqdaDcVZ-LD2XXI_j5lwKmXpqok8b-qRVMGCsC8=s288-c-no' alt='FactWise Logo' className='w-6 h-6 rounded-full' />
+                                <img src='https://avatars.githubusercontent.com/u/69753708?v=4' alt='FactWise Logo' className='w-6 h-6 rounded-full' />
 
               </div>
               <span className="text-sm font-medium text-gray-700">Ankush N</span>
