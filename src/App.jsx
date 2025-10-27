@@ -1,28 +1,40 @@
-// src/App.jsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import store from './store/store';
 import LandingPage from '../src/pages/LandingPage';
-import Dashboard from '../src/components/DashboardStats'
+import Dashboard from '../src/components/DashboardStats';
 import Analytics from '../src/pages/Analytics';
 import Reports from '../src/pages/Reports';
 import Footer from "./components/Footer";
+import LoadingSpinner from "../src/components/Loader";  
 
-// Create React Query client
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: 1,
       refetchOnWindowFocus: false,
-      staleTime: 5 * 60 * 1000, // 5 minutes
+      staleTime: 5 * 60 * 1000,  
     },
   },
 });
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 5000); 
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
@@ -38,7 +50,6 @@ const App = () => {
         </Router>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
-          {/* <Footer /> */}
     </Provider>
   );
 };
